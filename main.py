@@ -8,7 +8,7 @@ from dataset import get_loaders
 from models import EpisodicSystem, CorticalSystem
 from train import train
 from test import test
-from analyze import analyze
+from analyze import analyze_episodic, analyze_cortical
 
 
 parser = argparse.ArgumentParser()
@@ -32,7 +32,7 @@ parser.add_argument('--use_images', action='store_true',
                     help='Use full face images and CNN for cortical system')
 parser.add_argument('--image_dir', default='images/',
                     help='Path to directory containing face images')
-parser.add_argument('--N_cortical', type=int, default=10000,
+parser.add_argument('--N_cortical', type=int, default=1000,
                     help='Number of steps for training cortical system')
 parser.add_argument('--bs_cortical', type=int, default=32,
                     help='Minibatch size for cortical system')
@@ -58,30 +58,38 @@ def main(args):
     # Episodic memory system: Pre-train, test, analyze (hub retrieval)
     meta = True # meta-learning for episodic memory system
     episodic_system = EpisodicSystem().to(device)
-    loaders = get_loaders(batch_size=args.bs_episodic, meta=meta, 
-                          use_images=False, image_dir=args.image_dir, 
-                          n_episodes=args.N_episodic)
-    train_loader, test_loader = loaders
-    episodic_train_results = train(meta, episodic_system, train_loader, args)
-    episodic_test_results = test(meta, episodic_system, test_loader, args)
-    episodic_analysis = analyze(meta, episodic_system, test_loader, args)
-    episodic_results = {'train' : episodic_train_results,
-                        'test' : episodic_test_results,
+    data = get_loaders(batch_size=args.bs_episodic, meta=meta, 
+                       use_images=False, image_dir=args.image_dir, 
+                       n_episodes=args.N_episodic)
+    train_data, train_loader, test_data, test_loader = data
+    episodic_train_losses = train(meta, episodic_system, train_loader, args)
+    episodic_train_acc = test(meta, episodic_system, train_loader, args)
+    episodic_test_acc = test(meta, episodic_system, test_loader, args)
+    episodic_analysis = analyze_episodic(episodic_system, test_data, args)
+    print("Episodic system training accuracy:", episodic_train_acc)
+    print("Episodic system testing accuracy:", episodic_test_acc)
+    episodic_results = {'loss' : episodic_train_losses,
+                        'train_acc': episodic_train_acc,
+                        'test_acc' : episodic_test_acc,
                         'analysis' : episodic_analysis}
 
     # Cortical system: Train, test, analyze (PCA, correlation)
     meta = False # cortical learning is vanilla
     cortical_system = CorticalSystem(use_images=args.use_images).to(device)
-    loaders = get_loaders(batch_size=args.bs_cortical, meta=False,
-                          use_images=args.use_images, image_dir=args.image_dir,
-                          n_episodes=None)
-    train_loader, test_loader = loaders
-    cortical_train_results = train(meta, cortical_system, train_loader, args)
-    cortical_test_results = test(meta, cortical_system, test_loader, args)
-    cortical_analysis = analyze(meta, cortical_system, test_loader, args)
-    cortical_results = {'train' : cortical_train_results,
-                        'test' : cortical_test_results,
-                        'analysis' : cortical_analysis}
+    data = get_loaders(batch_size=args.bs_cortical, meta=False,
+                       use_images=args.use_images, image_dir=args.image_dir,
+                       n_episodes=None)
+    train_data, train_loader, test_data, test_loader = data
+    cortical_train_losses = train(meta, cortical_system, train_loader, args)
+    cortical_train_acc = test(meta, cortical_system, train_loader, args)
+    cortical_test_acc = test(meta, cortical_system, test_loader, args)
+    cortical_analysis = analyze_cortical(cortical_system, test_data, args)
+    print("Cortical system training accuracy:", cortical_train_acc)
+    print("Cortical system testing accuracy:", cortical_test_acc)
+    cortical_results = {'loss': cortical_train_losses,
+                        'train_acc': cortical_train_acc,
+                        'test_acc': cortical_test_acc,
+                        'analysis': cortical_analysis}
     
     # Save results
     results = {'Episodic' : episodic_results,

@@ -11,8 +11,7 @@ def test(meta, model, loader, args):
                 m = m.to(args.device) # [batch, n_train, sample (with y)]
                 x = x_[:,:,:-1].to(args.device) # [batch, n_test, input (no y)]
                 y = x_[:,:,-1].type(torch.long).to(args.device)
-                y = y.squeeze()
-                # y: [batch, n_test, 1]
+                y = y.squeeze() # y: [batch, n_test]
                 y_hat, attention = model(x, m) # yhat: [batch, n_test, 2]
                 preds = torch.argmax(y_hat, dim=2).squeeze(0) # [n_test]
             else:
@@ -27,6 +26,5 @@ def test(meta, model, loader, args):
             c = c.cpu().numpy().tolist()
             correct += c
     acc = np.mean(correct)
-    print("Testing accuracy:", acc)
     return acc
 

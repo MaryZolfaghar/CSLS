@@ -237,14 +237,11 @@ class GridDataset(Dataset):
         self.testing = testing       # use test set
         self.use_images = use_images # use images rather than one-hot vectors
         self.image_dir = image_dir   # directory with images
-
         self.grid = Grid()
 
         # Create 1 fixed mapping from locs to idxs
         locs = self.grid.locs 
         idxs = [idx for idx in range(len(locs))]
-        random.shuffle(locs)
-        random.shuffle(idxs)
         self.loc2idx = {loc:idx for loc, idx in zip(locs, idxs)}
         self.n_states = len(idxs)
 
@@ -386,23 +383,23 @@ def grid_collate(samples):
 def get_loaders(batch_size, meta, use_images, image_dir, n_episodes):
     if meta:
         # Train
-        train_dataset = GridMetaDataset(testing=False, n_episodes=n_episodes)
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, 
+        train_data = GridMetaDataset(testing=False, n_episodes=n_episodes)
+        train_loader = DataLoader(train_data, batch_size=batch_size, 
                                   shuffle=True, collate_fn=meta_collate) 
         # Test
-        test_dataset = GridMetaDataset(testing=True, n_episodes=n_episodes)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, 
+        test_data = GridMetaDataset(testing=True, n_episodes=n_episodes)
+        test_loader = DataLoader(test_data, batch_size=batch_size, 
                                  shuffle=True, collate_fn=meta_collate)
     else:
         # Train
-        train_dataset = GridDataset(testing=False, use_images=use_images, 
-                                    image_dir=image_dir)
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, 
+        train_data = GridDataset(testing=False, use_images=use_images, 
+                                 image_dir=image_dir)
+        train_loader = DataLoader(train_data, batch_size=batch_size, 
                                   shuffle=True, collate_fn=grid_collate)
         # Test
-        test_dataset = GridDataset(testing=True, use_images=use_images, 
-                                   image_dir=image_dir)
-        test_loader = DataLoader(test_dataset, batch_size=batch_size, 
+        test_data = GridDataset(testing=True, use_images=use_images, 
+                                image_dir=image_dir)
+        test_loader = DataLoader(test_data, batch_size=batch_size, 
                                  shuffle=True, collate_fn=grid_collate)
-    return train_loader, test_loader
+    return train_data, train_loader, test_data, test_loader
 
