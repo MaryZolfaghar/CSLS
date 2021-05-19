@@ -26,12 +26,13 @@ To cite this paper:
 
 ## Scripts Info.
 This directory containts the following:
-- [`main.py`](main.py): Runs train, test and analy both the episodic system and the cortical system
+- [`main.py`](main.py): Runs train, test and analyze for both the episodic and the cortical system
 - [`dataset.py`](dataset.py): Classes for generating and building the dataset and corresponding dataloader
 - [`models.py`](models.py): Models used in both the episodic and the cortical system
-- [`train.py`](train.py): Training script
+- [`train.py`](train.py): Training script with periodic validation 
 - [`test.py`](test.py): Testing script 
 - [`results.ipynb`](results.ipynb) Reproducing the results in the paper.
+- [`results.P`](results.P) Contains results 
 
 <!-- ## Installation
 ### Conda (Recommended)
