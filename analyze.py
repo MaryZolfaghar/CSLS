@@ -103,7 +103,7 @@ def analyze_cortical(model, test_data, args):
     embeddings = []
     with torch.no_grad():
         for idx in range(n_states):
-            face_tensor = idx2tensor[idx]
+            face_tensor = idx2tensor[idx].unsqueeze(0)
             embedding = face_embedding(face_tensor) # [1, state_dim]
             embedding = embedding.unsqueeze(0).cpu().numpy()
             embeddings.append(embedding)
