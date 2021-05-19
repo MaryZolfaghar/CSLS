@@ -4,8 +4,7 @@ This repository contains the code for [this paper](https://arxiv.org/).
 
 **Title:** Complementary Structure-Learning Neural Networks for Relational Reasoning
 
-**Abstract:** The neural mechanisms supporting flexible relational inferences, especially in novel situations, are a major focus of current research.  
-In the complementary learning systems framework, pattern separation in the hippocampus allows rapid learning in novel environments, while slower learning in neocortex accumulates small weight changes to extract systematic structure from well-learned environments. In this work, we adapt this framework to a task from a recent fMRI experiment where novel transitive inferences must be made according to implicit relational structure. We show that computational models capturing the basic cognitive properties of these two systems can explain relational transitive inferences in both familiar and novel environments, and reproduce key phenomena observed in the fMRI experiment.
+**Abstract:** The neural mechanisms supporting flexible relational inferences, especially in novel situations, are a major focus of current research. In the complementary learning systems framework, pattern separation in the hippocampus allows rapid learning in novel environments, while slower learning in neocortex accumulates small weight changes to extract systematic structure from well-learned environments. In this work, we adapt this framework to a task from a recent fMRI experiment where novel transitive inferences must be made according to implicit relational structure. We show that computational models capturing the basic cognitive properties of these two systems can explain relational transitive inferences in both familiar and novel environments, and reproduce key phenomena observed in the fMRI experiment.
 
 **Keywords:**
 neural networks; cognitive maps; complementary learning systems; structure learning; transitive inference
