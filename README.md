@@ -14,8 +14,8 @@ To cite this paper:
 @inproceedings{
   RussinZolfagharParkEtAl21,
   title = {Complementary {{Structure}}-{{Learning Neural Networks}} for {{Relational Reasoning}}},
-  booktitle = {Proceedings for the 43nd {{Annual Meeting}} of the {{Cognitive Science Society}}},
-  author = {Russin, J. L. and Zolfaghar, M. and Park, S. A. and Boorman, E. and O'Reilly, R. C.},
+  booktitle = {Proceedings for the 43rd {{Annual Meeting}} of the {{Cognitive Science Society}}},
+  author = {Russin, J. and Zolfaghar, M. and Park, S. A. and Boorman, E. and O'Reilly, R. C.},
   year = {2021},
   pages = {7},
 }
