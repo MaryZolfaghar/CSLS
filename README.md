@@ -72,11 +72,10 @@ python main.py --use_images
 The default hyperparameters and their descriptions can be found in `main.py`.
 
 ```
-usage: main.py [--use_cuda False]
-               [--seed 0][--print_every 200]
+usage: main.py [--use_cuda False][--seed 0]
+               [--print_every 200][--lr_cortical 0.001]
                [--out_file results.P][--N_episodic 1000]
                [--bs_episodic 16][--lr_episodic 0.001]
-               [--use_images False]
-               [--image_dir images/][--N_cortical 1000][--bs_cortical 32]
-               [--lr_cortical 0.001]
+               [--use_images False][--image_dir images/]
+               [--N_cortical 1000][--bs_cortical 32]               
 ```
