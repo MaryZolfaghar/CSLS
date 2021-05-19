@@ -105,7 +105,7 @@ def analyze_cortical(model, test_data, args):
         for idx in range(n_states):
             face_tensor = idx2tensor[idx].unsqueeze(0)
             embedding = face_embedding(face_tensor) # [1, state_dim]
-            embedding = embedding.unsqueeze(0).cpu().numpy()
+            embedding = embedding.cpu().numpy()
             embeddings.append(embedding)
     embeddings = np.concatenate(embeddings, axis=0) # [n_states, state_dim]
 
