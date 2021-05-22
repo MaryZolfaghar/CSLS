@@ -1,6 +1,6 @@
 # Complementary Structure Learning Systems
 
-This repository contains the code for [this paper](https://arxiv.org/).
+This repository contains the code for [this paper](https://arxiv.org/abs/2105.08944).
 
 **Title:** Complementary Structure-Learning Neural Networks for Relational Reasoning
 
