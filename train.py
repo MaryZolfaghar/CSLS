@@ -9,6 +9,7 @@ def train(meta, model, loader, args):
 
     # loss function
     loss_fn = nn.CrossEntropyLoss()
+    loss_fn.to(args.device)
 
     # optimizer
     lr = args.lr_episodic if meta else args.lr_cortical
