@@ -30,7 +30,7 @@ This directory containts the following:
 - [`models.py`](models.py): Models used in both the episodic and the cortical system
 - [`train.py`](train.py): Training script
 - [`test.py`](test.py): Testing script 
-- [`results.ipynb`](results.ipynb) For visualizing the results of the experiments
+- [`results.ipynb`](results.ipynb) Replicating the results of the paper
 - [`results.P`](results.P) Results file (will be overwritten unless another file name is specified)
 
 <!-- ## Installation
