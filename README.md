@@ -58,7 +58,7 @@ pip install --editable .
 ```
 conda create -n csls python=3.6
 conda activate csls
-conda install pytorch torchvision torchaudio -c pytorch
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 conda install -c anaconda scikit-learn 
 ```
 Note that you should install [PyTorch](http://pytorch.org/) for your platform.
