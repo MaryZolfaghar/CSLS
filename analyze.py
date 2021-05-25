@@ -100,10 +100,11 @@ def analyze_cortical(model, test_data, args):
     # Get embeddings from model for each face
     model.eval()
     face_embedding = model.face_embedding
+    face_embedding.to(args.device)
     embeddings = []
     with torch.no_grad():
         for idx in range(n_states):
-            face_tensor = idx2tensor[idx].unsqueeze(0)
+            face_tensor = idx2tensor[idx].unsqueeze(0).to(args.device)
             embedding = face_embedding(face_tensor) # [1, state_dim]
             embedding = embedding.cpu().numpy()
             embeddings.append(embedding)
